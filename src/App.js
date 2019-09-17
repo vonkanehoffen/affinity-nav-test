@@ -13,6 +13,7 @@ const View = styled.div`
   background: paleturquoise;
   flex-grow: 1;
   padding: 1rem;
+  margin-left: 290px;
 `;
 
 function App() {

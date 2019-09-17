@@ -13,6 +13,7 @@ import EvenDeeper from "../../DummyViews/EvenDeeper";
 import MoreThings from "../../DummyViews/MoreThings";
 import OtherStuff from "../../DummyViews/OtherStuff";
 import ManageProducts from "../../DummyViews/ManageProducts";
+import SubNav from "./SubNav";
 
 /**
  * /billing routes
@@ -107,7 +108,10 @@ const MainNav = () => {
   return (
     <>
       <RootNav />
-      <Route path="/billing" component={BillingNav} />
+      <Route
+        path="/billing"
+        component={() => <SubNav routes={billingRoutes} />}
+      />
     </>
   );
 };
