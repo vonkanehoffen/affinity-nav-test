@@ -1,11 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { BrowserRouter, Route } from "react-router-dom";
 import styled from "styled-components";
-import RootNav from "./components/RootNav";
-import BillingNav from "./components/BillingNav";
-import Breadcrumbs from "./components/Breadcrumbs";
+import Breadcrumbs from "./components/MainNav/Breadcrumbs";
+import MainNav from "./components/MainNav";
 
 const Container = styled.div`
   display: flex;
@@ -21,8 +19,7 @@ function App() {
   return (
     <BrowserRouter>
       <Container>
-        <RootNav />
-        <Route path="/billing" component={BillingNav} />
+        <MainNav />
         <View>
           <Breadcrumbs />
           <Route path="/billing" component={() => <h1>Billing root</h1>} />
