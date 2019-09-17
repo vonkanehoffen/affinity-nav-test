@@ -35,71 +35,69 @@ import SubNav from "./SubNav";
        - Other Stuff          /billing/products/lorem/stuff
      - Manage Products        /billing/products/manage
 
+ so root for this is
+ path: "/billing",
+ title: "Dashboard",
+ component: BillingDashboard,
+
  */
 const billingRoutes = [
   {
-    path: "/billing",
-    title: "Dashboard",
-    component: BillingDashboard,
+    path: "/customers",
+    title: "Customers",
+    component: CustomersDashboard,
     routes: [
       {
-        path: "/customers",
-        title: "Customers",
-        component: CustomersDashboard,
-        routes: [
-          {
-            path: "/manage",
-            title: "Manage Customers",
-            component: ManageCustomers
-          }
-        ]
+        path: "/manage",
+        title: "Manage Customers",
+        component: ManageCustomers
+      }
+    ]
+  },
+  {
+    path: "/products",
+    title: "Products",
+    component: ProductDashboard,
+    routes: [
+      {
+        path: "/view",
+        title: "View Products",
+        component: ViewProducts
+        // Note: routes off this inside component that should retain the menu context
       },
       {
-        path: "/products",
-        title: "Products",
-        component: ProductDashboard,
+        path: "/lorem",
+        title: "Lorem Ipusm",
+        component: LoremIpsum,
         routes: [
           {
-            path: "/view",
-            title: "View Products",
-            component: ViewProducts
-            // Note: routes off this inside component that should retain the menu context
-          },
-          {
-            path: "/lorem",
-            title: "Lorem Ipusm",
-            component: LoremIpsum,
+            path: "/dolor-sit",
+            title: "Dolor Sit amet",
+            component: DolorSitAmet,
             routes: [
               {
-                path: "/dolor-sit",
-                title: "Dolor Sit amet",
-                component: DolorSitAmet,
-                routes: [
-                  {
-                    path: "/even-deeper",
-                    title: "Even Deeper",
-                    component: EvenDeeper
-                  },
-                  {
-                    path: "/more-things",
-                    title: "More things",
-                    component: MoreThings
-                  }
-                ]
+                path: "/even-deeper",
+                title: "Even Deeper",
+                component: EvenDeeper
               },
               {
-                path: "/stuff",
-                title: "Other stuff",
-                component: OtherStuff
+                path: "/more-things",
+                title: "More things",
+                component: MoreThings
               }
             ]
           },
           {
-            path: "/manage",
-            title: "Manage Products",
-            component: ManageProducts
+            path: "/stuff",
+            title: "Other stuff",
+            component: OtherStuff
           }
         ]
+      },
+      {
+        path: "/manage",
+        title: "Manage Products",
+        component: ManageProducts
       }
     ]
   }
@@ -110,7 +108,7 @@ const MainNav = () => {
       <RootNav />
       <Route
         path="/billing"
-        component={() => <SubNav routes={billingRoutes} />}
+        component={() => <SubNav routes={billingRoutes} base="/billing" />}
       />
     </>
   );

@@ -14,8 +14,9 @@ const Outer = styled.div`
 `;
 
 const Level = styled.div`
-  background: goldenrod;
+  background: pink;
   border: 1px solid red;
+  padding-left: 20px;
 `;
 
 const NavLink = styled(Link)`
@@ -25,29 +26,33 @@ const NavLink = styled(Link)`
   border: 1px solid #000;
 `;
 
-const SubNavLevel = ({ routes, base = "" }) => {
+const SubNavLevel = ({ routes, base }) => {
   return (
-    <Switch>
+    <Level>
+      <h5>base = {base}</h5>
       {routes.map(route => (
-        <Level key={route.path}>
+        <div>
           <NavLink to={`${base}${route.path}`}>{route.title}</NavLink>
           {route.routes && (
             <Route
-              path={route.path}
+              path={`${base}${route.path}`}
               component={() => (
-                <SubNavLevel routes={route.routes} base={route.path} />
+                <SubNavLevel
+                  routes={route.routes}
+                  base={`${base}${route.path}`}
+                />
               )}
             />
           )}
-        </Level>
+        </div>
       ))}
-    </Switch>
+    </Level>
   );
 };
 
-export const SubNav = ({ routes }) => (
+export const SubNav = props => (
   <Outer>
-    <SubNavLevel routes={routes} />
+    <SubNavLevel {...props} />
   </Outer>
 );
 
