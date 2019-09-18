@@ -4,12 +4,13 @@ import { BrowserRouter, Route } from "react-router-dom";
 import styled from "styled-components";
 import Breadcrumbs from "./components/MainNav/Breadcrumbs";
 import MainNav from "./components/MainNav";
+import Views from "./components/Views";
 
 const Container = styled.div`
   display: flex;
 `;
 
-const View = styled.div`
+const Content = styled.div`
   background: paleturquoise;
   flex-grow: 1;
   padding: 1rem;
@@ -21,10 +22,10 @@ function App() {
     <BrowserRouter>
       <Container>
         <MainNav />
-        <View>
+        <Content>
           <Breadcrumbs />
-          <Route path="/billing" component={() => <h1>Billing root</h1>} />
-        </View>
+          <Views />
+        </Content>
       </Container>
     </BrowserRouter>
   );
