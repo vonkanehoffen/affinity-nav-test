@@ -3,6 +3,7 @@ import { Route, Link, Switch, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { getMatchedRoute } from "../../helpers/routeHelpers";
 import { billingRoutesFlat } from "./billingRoutes";
+import ArrowForward from "@material-ui/icons/ArrowForward";
 
 const Outer = styled.div`
   position: fixed;
@@ -13,7 +14,7 @@ const Outer = styled.div`
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background: white;
   //opacity: 0.5;
-  //overflow: hidden;
+  overflow: hidden;
 `;
 
 const Slider = styled.div`
@@ -51,7 +52,10 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
       )}
       {routes.map(route => (
         <div key={route.path}>
-          <NavLink to={`${base}${route.path}`}>{route.title}</NavLink>
+          <NavLink to={`${base}${route.path}`}>
+            {route.title}
+            {route.routes && <ArrowForward />}
+          </NavLink>
           {route.routes && (
             <Route
               path={`${base}${route.path}`}
@@ -71,8 +75,18 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
 
 export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
   const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
-  const level = matchedRoute ? matchedRoute.path.split("/").length - 1 : 1;
-
+  let level = 1;
+  if (matchedRoute) {
+    const currentLevel = matchedRoute.path.split("/").length - 1;
+    const endSibling = billingRoutesFlat.find(route =>
+      route.path.includes(pathname)
+    );
+    const maxLevel = endSibling
+      ? endSibling.path.split("/").length - 1
+      : currentLevel;
+    console.log("currentLevel = ", currentLevel, "maxLevel = ", maxLevel);
+    level = Math.min(currentLevel, maxLevel - 1);
+  }
   return (
     <Outer>
       <Slider level={level}>
