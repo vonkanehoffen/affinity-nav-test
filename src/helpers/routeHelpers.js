@@ -47,7 +47,7 @@ export function getMatchedRoute(routes, pathname) {
   let matchedRoute,
     subject = pathname;
   while (!matchedRoute && subject) {
-    matchedRoute = routes.find(route => route.path === subject);
+    matchedRoute = routes.find(route => route.path === subject); // eslint-disable-line no-loop-func
     subject = subject.substring(0, subject.lastIndexOf("/"));
   }
   return matchedRoute;
