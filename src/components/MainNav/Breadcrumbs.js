@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import { billingRoutes, billingRoutesFlat } from "./billingRoutes";
+import { billingRoutesFlat } from "./billingRoutes";
 import { Link } from "react-router-dom";
 
 const Breadcrumbs = ({ location: { pathname } }) => {
@@ -19,10 +19,7 @@ const Breadcrumbs = ({ location: { pathname } }) => {
     <div>
       <h4>Breadcrumbs</h4>
       <pre>pathname = {pathname}</pre>
-      <ul>
-        <BreadcrumbItem route={matchedRoute} />
-        {/*<li key={matchedRoute.path}>{matchedRoute.title}</li>*/}
-      </ul>
+      <BreadcrumbItem route={matchedRoute} />
     </div>
   );
 };
@@ -34,7 +31,7 @@ const BreadcrumbItem = ({ route }) => {
   return (
     <>
       {parentRoute && <BreadcrumbItem route={parentRoute} />}
-      <Link to={route.path}>{route.title} -> </Link>
+      <Link to={route.path}>{route.title}</Link> ->
     </>
   );
 };
