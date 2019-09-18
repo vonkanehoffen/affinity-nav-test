@@ -8,7 +8,7 @@ import {
   SalesIcon,
   SelfServiceIcon,
   SupportIcon
-} from "@bit/aurora.aurora-ds.affinity-icons";
+} from "../affinity-icons/";
 
 const Outer = styled.div`
   z-index: 10;
