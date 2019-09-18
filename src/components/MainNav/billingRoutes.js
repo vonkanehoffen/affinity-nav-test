@@ -8,6 +8,7 @@ import EvenDeeper from "../../DummyViews/EvenDeeper";
 import MoreThings from "../../DummyViews/MoreThings";
 import OtherStuff from "../../DummyViews/OtherStuff";
 import ManageProducts from "../../DummyViews/ManageProducts";
+import { flattenRoutes } from "../../helpers/routeHelpers";
 
 /**
  * /billing routes
@@ -35,7 +36,7 @@ import ManageProducts from "../../DummyViews/ManageProducts";
  component: BillingDashboard,
 
  */
-const billingRoutes = [
+export const billingRoutes = [
   {
     path: "/customers",
     title: "Customers",
@@ -97,4 +98,4 @@ const billingRoutes = [
   }
 ];
 
-export default billingRoutes;
+export const billingRoutesFlat = flattenRoutes(billingRoutes, "/billing");
