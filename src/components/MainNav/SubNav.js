@@ -3,7 +3,10 @@ import { Route, Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import { getMatchedRoute } from "../../helpers/routeHelpers";
 import { billingRoutesFlat } from "./billingRoutes";
-import ArrowForward from "@material-ui/icons/ArrowForward";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+import ChevronLeft from "@material-ui/icons/ChevronLeft";
+import Box from "@material-ui/core/Box";
+import { Typography } from "@material-ui/core";
 
 const Outer = styled.div`
   position: fixed;
@@ -31,11 +34,21 @@ const Level = styled.div`
   width: 230px;
 `;
 
+const BackLink = styled(Link)`
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+`;
+
 const NavLink = styled(Link)`
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   padding: 1rem;
   background: greenyellow;
-  border: 1px solid #000;
+  border-bottom: 1px solid #000;
+  text-decoration: none;
 `;
 
 const SubNavLevel = ({ routes, base, rootTitle }) => {
@@ -43,18 +56,22 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
   return (
     <Level>
       {rootTitle ? (
-        <h4>{rootTitle}</h4>
+        <Box m={1}>
+          <Typography variant="h4">{rootTitle}</Typography>
+        </Box>
       ) : (
         <div>
-          <h5>base = {base}</h5>
-          <Link to={parentPath}>Back</Link>
+          <BackLink to={parentPath}>
+            <ChevronLeft /> Back
+          </BackLink>
+          <NavLink to={base}>Dashboard</NavLink>
         </div>
       )}
       {routes.map(route => (
         <div key={route.path}>
           <NavLink to={`${base}${route.path}`}>
             {route.title}
-            {route.routes && <ArrowForward />}
+            {route.routes && <ChevronRight />}
           </NavLink>
           {route.routes && (
             <Route

@@ -14,7 +14,6 @@ const Breadcrumbs = ({ location: { pathname } }) => {
   return (
     <div>
       <h4>Breadcrumbs</h4>
-      <pre>pathname = {pathname}</pre>
       <BreadcrumbItem route={matchedRoute} />
     </div>
   );
