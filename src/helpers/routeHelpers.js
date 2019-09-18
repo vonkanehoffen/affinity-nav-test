@@ -37,3 +37,18 @@ export function flattenRoutes(sourceRoutes, sourceRoutesBase) {
 
   return flatRoutes;
 }
+
+/**
+ * Get most specific route that exists for the pathname
+ * @param routes
+ * @param pathname
+ */
+export function getMatchedRoute(routes, pathname) {
+  let matchedRoute,
+    subject = pathname;
+  while (!matchedRoute && subject) {
+    matchedRoute = routes.find(route => route.path === subject);
+    subject = subject.substring(0, subject.lastIndexOf("/"));
+  }
+  return matchedRoute;
+}

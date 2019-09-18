@@ -2,15 +2,11 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import { billingRoutesFlat } from "./billingRoutes";
 import { Link } from "react-router-dom";
+import { getMatchedRoute } from "../../helpers/routeHelpers";
 
 const Breadcrumbs = ({ location: { pathname } }) => {
   // Get most specific route that exists for the pathname
-  let matchedRoute,
-    subject = pathname;
-  while (!matchedRoute && subject) {
-    matchedRoute = billingRoutesFlat.find(route => route.path === subject);
-    subject = subject.substring(0, subject.lastIndexOf("/"));
-  }
+  const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
 
   if (!matchedRoute) return false; // i.e. Probably a 404
 

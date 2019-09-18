@@ -1,20 +1,26 @@
 import React from "react";
-import { Route, Link, Switch } from "react-router-dom";
+import { Route, Link, Switch, withRouter } from "react-router-dom";
 import styled from "styled-components";
+import { getMatchedRoute } from "../../helpers/routeHelpers";
+import { billingRoutesFlat } from "./billingRoutes";
 
 const Outer = styled.div`
   position: fixed;
   top: 0;
   left: 60px;
-  width: 460px;
+  width: 230px;
   height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background: white;
   //opacity: 0.5;
   //overflow: hidden;
-  margin-left: -230px;
 `;
 
+const Slider = styled.div`
+  transform: translateX(-${props => props.level * 230}px);
+  transition: transform 0.4s;
+  //opacity: 0.4;
+`;
 const Level = styled.div`
   position: absolute;
   left: 230px;
@@ -55,10 +61,17 @@ const SubNavLevel = ({ routes, base }) => {
   );
 };
 
-export const SubNav = props => (
-  <Outer>
-    <SubNavLevel {...props} />
-  </Outer>
-);
+export const SubNav = ({ routes, base, location: { pathname } }) => {
+  const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
+  const level = matchedRoute ? matchedRoute.path.split("/").length - 1 : 1;
 
-export default SubNav;
+  return (
+    <Outer>
+      <Slider level={level}>
+        <SubNavLevel routes={routes} base={base} />
+      </Slider>
+    </Outer>
+  );
+};
+
+export default withRouter(SubNav);
