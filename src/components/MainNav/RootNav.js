@@ -1,11 +1,18 @@
-import React from 'react'
-import styled from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { BillingIcon, OrderIcon, ProvisionIcon, SalesIcon, SelfServiceIcon, SupportIcon } from '@bit/aurora.aurora-ds.affinity-icons'
+import {
+  BillingIcon,
+  OrderIcon,
+  ProvisionIcon,
+  SalesIcon,
+  SelfServiceIcon,
+  SupportIcon
+} from "@bit/aurora.aurora-ds.affinity-icons";
 
 const Outer = styled.div`
   z-index: 10;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 60px;
@@ -39,26 +46,30 @@ const IconWrap = styled.div`
   }
 `;
 
-const Item = ({link, label, icon }) => (
+const Item = ({ link, label, icon }) => (
   <Link to={link}>
     <ListItem>
       <IconWrap>{icon}</IconWrap>
       {label}
     </ListItem>
   </Link>
-)
+);
 
 const RootNav = () => {
   return (
     <Outer>
-      <Item icon={<BillingIcon/>} label="Billing" link="/billing" />
-      <Item icon={<OrderIcon />} label="Order" link="/order"/>
-      <Item icon={<ProvisionIcon />} label="Provision" link="/provision"/>
-      <Item icon={<SalesIcon />} label="Sales" link="/sales"/>
-      <Item icon={<SelfServiceIcon />} label="Self Service" link="/self-service"/>
+      <Item icon={<BillingIcon />} label="Billing" link="/billing" />
+      <Item icon={<OrderIcon />} label="Order" link="/order" />
+      <Item icon={<ProvisionIcon />} label="Provision" link="/provision" />
+      <Item icon={<SalesIcon />} label="Sales" link="/sales" />
+      <Item
+        icon={<SelfServiceIcon />}
+        label="Self Service"
+        link="/self-service"
+      />
       <Item icon={<SupportIcon />} label="Support" link="/support" />
     </Outer>
-  )
-}
+  );
+};
 
-export default RootNav
+export default RootNav;
