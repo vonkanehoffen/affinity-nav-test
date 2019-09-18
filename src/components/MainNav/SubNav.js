@@ -31,7 +31,7 @@ const SubNavLevel = ({ routes, base }) => {
     <Level>
       <h5>base = {base}</h5>
       {routes.map(route => (
-        <div>
+        <div key={route.path}>
           <NavLink to={`${base}${route.path}`}>{route.title}</NavLink>
           {route.routes && (
             <Route

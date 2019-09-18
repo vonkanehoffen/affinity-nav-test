@@ -24,14 +24,27 @@ function flatten(routes, base) {
 
 flatten(billingRoutes, "/billing");
 
+/**
+ * Sort routes by specificity as <Switch> renders the first match.
+ * Without this /billing/products/ would supersede /billing/products/view, for instance.
+ */
+flatRoutes.sort((a, b) => {
+  // Find specificity of paths, by how many / they have
+  const sA = a.path.split("/").length;
+  const sB = b.path.split("/").length;
+  if (sA > sB) return -1;
+  if (sA < sB) return 1;
+  return 0;
+});
+
 const Views = () => {
   return (
-    <>
-      <Route path="/billing" component={BillingDashboard} />
+    <Switch>
       {flatRoutes.map(route => (
-        <Route {...route} />
+        <Route {...route} key={route.path} />
       ))}
-    </>
+      <Route path="/billing" component={BillingDashboard} />
+    </Switch>
   );
 };
 
