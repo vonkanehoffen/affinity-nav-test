@@ -37,10 +37,18 @@ const NavLink = styled(Link)`
   border: 1px solid #000;
 `;
 
-const SubNavLevel = ({ routes, base }) => {
+const SubNavLevel = ({ routes, base, rootTitle }) => {
+  const parentPath = base.substring(0, base.lastIndexOf("/"));
   return (
     <Level>
-      <h5>base = {base}</h5>
+      {rootTitle ? (
+        <h4>{rootTitle}</h4>
+      ) : (
+        <div>
+          <h5>base = {base}</h5>
+          <Link to={parentPath}>Back</Link>
+        </div>
+      )}
       {routes.map(route => (
         <div key={route.path}>
           <NavLink to={`${base}${route.path}`}>{route.title}</NavLink>
@@ -61,14 +69,14 @@ const SubNavLevel = ({ routes, base }) => {
   );
 };
 
-export const SubNav = ({ routes, base, location: { pathname } }) => {
+export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
   const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
   const level = matchedRoute ? matchedRoute.path.split("/").length - 1 : 1;
 
   return (
     <Outer>
       <Slider level={level}>
-        <SubNavLevel routes={routes} base={base} />
+        <SubNavLevel routes={routes} base={base} rootTitle={rootTitle} />
       </Slider>
     </Outer>
   );
