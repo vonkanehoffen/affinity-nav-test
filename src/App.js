@@ -23,7 +23,7 @@ function App() {
       <Container>
         <MainNav />
         <Content>
-          <Breadcrumbs />
+          <Breadcrumbs basePath="/billing" baseTitle="Billing" />
           <Views />
         </Content>
       </Container>
