@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Breadcrumbs from "./components/MainNav/Breadcrumbs";
 import MainNav from "./components/MainNav";
 import Billing from "./microFrontEnds/Billing";
+import Sales from "./microFrontEnds/Sales";
 
 const Container = styled.div`
   display: flex;
@@ -23,15 +24,8 @@ function App() {
       <Container>
         <MainNav />
         <Content>
-          <Route
-            path="/billing"
-            component={() => (
-              <>
-                <Breadcrumbs basePath="/billing" baseTitle="Billing" />
-                <Billing />
-              </>
-            )}
-          />
+          <Route path="/billing" component={Billing} />
+          <Route path="/sales" component={Sales} />
         </Content>
       </Container>
     </BrowserRouter>

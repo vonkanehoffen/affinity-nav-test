@@ -2,6 +2,7 @@ import React from "react";
 import { billingRoutesFlat } from "../../components/MainNav/billingRoutes";
 import { Route, Switch } from "react-router-dom";
 import BillingDashboard from "./DummyViews/BillingDashboard";
+import Breadcrumbs from "../../components/MainNav/Breadcrumbs";
 
 /**
  * Render routes for all views.
@@ -11,12 +12,15 @@ import BillingDashboard from "./DummyViews/BillingDashboard";
  */
 const Billing = () => {
   return (
-    <Switch>
-      {billingRoutesFlat.map(route => (
-        <Route {...route} key={route.path} />
-      ))}
-      <Route path="/billing" component={BillingDashboard} />
-    </Switch>
+    <div>
+      <Breadcrumbs basePath="/billing" baseTitle="Billing" />
+      <Switch>
+        {billingRoutesFlat.map(route => (
+          <Route {...route} key={route.path} />
+        ))}
+        <Route path="/billing" component={BillingDashboard} />
+      </Switch>
+    </div>
   );
 };
 
