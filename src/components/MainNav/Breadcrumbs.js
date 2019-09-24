@@ -7,7 +7,7 @@ import { getMatchedRoute } from "../../helpers/routeHelpers";
 const Breadcrumbs = ({ location: { pathname }, basePath, baseTitle }) => {
   // Get most specific route that exists for the pathname
   const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
-  console.log({ billingRoutesFlat, matchedRoute });
+  // console.log({ billingRoutesFlat, matchedRoute });
 
   return (
     <div>

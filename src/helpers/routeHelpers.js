@@ -1,3 +1,5 @@
+import { matchPath } from "react-router-dom";
+
 /**
  * Iterate recursively over a routes object to give us all the paths
  * necessary for the view route components.
@@ -44,11 +46,18 @@ export function flattenRoutes(sourceRoutes, sourceRoutesBase) {
  * @param pathname
  */
 export function getMatchedRoute(routes, pathname) {
-  let matchedRoute,
-    subject = pathname;
-  while (!matchedRoute && subject) {
-    matchedRoute = routes.find(route => route.path === subject); // eslint-disable-line no-loop-func
-    subject = subject.substring(0, subject.lastIndexOf("/"));
-  }
-  return matchedRoute;
+  // let matchedRoute,
+  //   subject = pathname;
+  // while (!matchedRoute && subject) {
+  //   matchedRoute = routes.find(route => route.path === subject); // eslint-disable-line no-loop-func
+  //   subject = subject.substring(0, subject.lastIndexOf("/"));
+  // }
+  // return matchedRoute;
+  return routes.find(route =>
+    matchPath(pathname, {
+      path: route.path,
+      exact: false,
+      strict: true
+    })
+  );
 }

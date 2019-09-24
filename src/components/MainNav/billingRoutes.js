@@ -9,6 +9,9 @@ import MoreThings from "../../DummyViews/MoreThings";
 import OtherStuff from "../../DummyViews/OtherStuff";
 import ManageProducts from "../../DummyViews/ManageProducts";
 import { flattenRoutes } from "../../helpers/routeHelpers";
+import CustomerDetail from "../../DummyViews/CustomerDetail";
+import CustomerDashboard from "../../DummyViews/CustomerDashboard";
+import Generic from "../../DummyViews/Generic";
 
 /**
  * /billing routes
@@ -44,7 +47,38 @@ export const billingRoutes = [
       {
         path: "/manage",
         title: "Manage Customers",
-        component: ManageCustomers
+        component: ManageCustomers,
+        routes: [
+          {
+            path: "/:customerId",
+            title: false, // Won't appear in the menu if title not present
+            // and kinda needs to skip this level as "Manage customers" should still be visible
+            component: CustomerDashboard,
+            // That :customerId will need to be substituted in the below paths
+            routes: [
+              {
+                path: "/details",
+                title: "Customer details",
+                component: CustomerDetail
+              },
+              {
+                path: "/products",
+                title: "Customer Products",
+                component: Generic
+              },
+              {
+                path: "/identifiers",
+                title: "Identifiers",
+                component: Generic
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: "/another",
+        title: "Another opt other than manage",
+        component: Generic
       }
     ]
   },
@@ -85,6 +119,11 @@ export const billingRoutes = [
             path: "/stuff",
             title: "Other stuff",
             component: OtherStuff
+          },
+          {
+            path: "/stuff2",
+            title: "Other Stuff 2",
+            component: Generic
           }
         ]
       },
