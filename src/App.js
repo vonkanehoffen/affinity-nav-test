@@ -2,7 +2,6 @@ import React from "react";
 import "./App.css";
 import { BrowserRouter, Route } from "react-router-dom";
 import styled from "styled-components";
-import Breadcrumbs from "./components/MainNav/Breadcrumbs";
 import MainNav from "./components/MainNav";
 import Billing from "./microFrontEnds/Billing";
 import Sales from "./microFrontEnds/Sales";

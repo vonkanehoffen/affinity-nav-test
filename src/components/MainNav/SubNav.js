@@ -7,7 +7,7 @@ import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import Box from "@material-ui/core/Box";
 import { Typography } from "@material-ui/core";
-import { matchPath } from "react-router-dom";
+import { matchPath, useParams } from "react-router-dom";
 
 const Outer = styled.div`
   position: fixed;
@@ -53,8 +53,9 @@ const NavLink = styled(Link)`
   text-decoration: none;
 `;
 
-const SubNavLevel = ({ routes, base, rootTitle, match }) => {
-  console.log("match: ", match);
+const SubNavLevel = ({ routes, base, rootTitle }) => {
+  const params = useParams();
+  console.log("params: ", params);
   const parentPath = base.substring(0, base.lastIndexOf("/"));
   return (
     <Level>
@@ -71,7 +72,13 @@ const SubNavLevel = ({ routes, base, rootTitle, match }) => {
         </div>
       )}
       {routes.map(route => {
-        const fullPath = `${base}${route.path}`;
+        // Construct the full path including the base and swap any parameters
+        // already matched in the current route
+        const fullPath = Object.keys(params).reduce(
+          (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
+          `${base}${route.path}`
+        );
+
         if (route.title || true)
           // this needs to be rendered invisible when param route?
           return (
