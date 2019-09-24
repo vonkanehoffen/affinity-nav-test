@@ -57,6 +57,23 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
   const params = useParams();
   console.log("params: ", params);
   const parentPath = base.substring(0, base.lastIndexOf("/"));
+  console.log("routes passed to SubNavLevel = ", routes);
+  // Fuck horrible but working. Render just the rout when it's a param level
+  // TODO: Tidy this up - it just removes the <Level> wrapper and Dash / back links
+  if (!routes[0].title) {
+    console.log("doing no title render");
+    const route = routes[0];
+    const fullPath = Object.keys(params).reduce(
+      (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
+      `${base}${route.path}`
+    );
+    return (
+      <Route
+        path={fullPath}
+        component={() => <SubNavLevel routes={route.routes} base={fullPath} />}
+      />
+    );
+  }
   return (
     <Level>
       {rootTitle ? (
