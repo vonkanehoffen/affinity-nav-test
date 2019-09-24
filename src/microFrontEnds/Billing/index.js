@@ -1,7 +1,7 @@
 import React from "react";
-import { billingRoutesFlat } from "./MainNav/billingRoutes";
+import { billingRoutesFlat } from "../../components/MainNav/billingRoutes";
 import { Route, Switch } from "react-router-dom";
-import BillingDashboard from "../DummyViews/BillingDashboard";
+import BillingDashboard from "./DummyViews/BillingDashboard";
 
 /**
  * Render routes for all views.
@@ -9,7 +9,7 @@ import BillingDashboard from "../DummyViews/BillingDashboard";
  * @returns {*}
  * @constructor
  */
-const Views = () => {
+const Billing = () => {
   return (
     <Switch>
       {billingRoutesFlat.map(route => (
@@ -20,4 +20,4 @@ const Views = () => {
   );
 };
 
-export default Views;
+export default Billing;

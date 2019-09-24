@@ -1,17 +1,17 @@
-import CustomersDashboard from "../../DummyViews/CustomersDashboard";
-import ManageCustomers from "../../DummyViews/ManageCustomers";
-import ProductDashboard from "../../DummyViews/ProductDashboard";
-import ViewProducts from "../../DummyViews/ViewProducts";
-import LoremIpsum from "../../DummyViews/LoremIpsum";
-import DolorSitAmet from "../../DummyViews/DolorSitAmet";
-import EvenDeeper from "../../DummyViews/EvenDeeper";
-import MoreThings from "../../DummyViews/MoreThings";
-import OtherStuff from "../../DummyViews/OtherStuff";
-import ManageProducts from "../../DummyViews/ManageProducts";
+import CustomersDashboard from "../../microFrontEnds/Billing/DummyViews/CustomersDashboard";
+import ManageCustomers from "../../microFrontEnds/Billing/DummyViews/ManageCustomers";
+import ProductDashboard from "../../microFrontEnds/Billing/DummyViews/ProductDashboard";
+import ViewProducts from "../../microFrontEnds/Billing/DummyViews/ViewProducts";
+import LoremIpsum from "../../microFrontEnds/Billing/DummyViews/LoremIpsum";
+import DolorSitAmet from "../../microFrontEnds/Billing/DummyViews/DolorSitAmet";
+import EvenDeeper from "../../microFrontEnds/Billing/DummyViews/EvenDeeper";
+import MoreThings from "../../microFrontEnds/Billing/DummyViews/MoreThings";
+import OtherStuff from "../../microFrontEnds/Billing/DummyViews/OtherStuff";
+import ManageProducts from "../../microFrontEnds/Billing/DummyViews/ManageProducts";
 import { flattenRoutes } from "../../helpers/routeHelpers";
-import CustomerDetail from "../../DummyViews/CustomerDetail";
-import CustomerDashboard from "../../DummyViews/CustomerDashboard";
-import Generic from "../../DummyViews/Generic";
+import CustomerDetail from "../../microFrontEnds/Billing/DummyViews/CustomerDetail";
+import CustomerDashboard from "../../microFrontEnds/Billing/DummyViews/CustomerDashboard";
+import Generic from "../../microFrontEnds/Billing/DummyViews/Generic";
 
 /**
  * /billing routes

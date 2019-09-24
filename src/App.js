@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 import styled from "styled-components";
 import Breadcrumbs from "./components/MainNav/Breadcrumbs";
 import MainNav from "./components/MainNav";
-import Views from "./components/Views";
+import Billing from "./microFrontEnds/Billing";
 
 const Container = styled.div`
   display: flex;
@@ -23,8 +23,15 @@ function App() {
       <Container>
         <MainNav />
         <Content>
-          <Breadcrumbs basePath="/billing" baseTitle="Billing" />
-          <Views />
+          <Route
+            path="/billing"
+            component={() => (
+              <>
+                <Breadcrumbs basePath="/billing" baseTitle="Billing" />
+                <Billing />
+              </>
+            )}
+          />
         </Content>
       </Container>
     </BrowserRouter>
