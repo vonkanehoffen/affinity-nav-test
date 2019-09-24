@@ -53,7 +53,8 @@ const NavLink = styled(Link)`
   text-decoration: none;
 `;
 
-const SubNavLevel = ({ routes, base, rootTitle }) => {
+const SubNavLevel = ({ routes, base, rootTitle, match }) => {
+  console.log("match: ", match);
   const parentPath = base.substring(0, base.lastIndexOf("/"));
   return (
     <Level>
@@ -100,27 +101,54 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
   );
 };
 
-export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
+export const SubNav = ({
+  routes,
+  base,
+  location: { pathname },
+  match,
+  rootTitle
+}) => {
   // Get the level (translateX) to slide the nav container to
+  // debugger;
   const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
   let level = 1;
+  console.log("matchedRoute = ", matchedRoute);
   if (matchedRoute) {
     // Level of current path
-    const currentLevel = matchedRoute.path.split("/").length - 1;
+    const currentLevel = (matchedRoute.path.match(/\/[^:]/g) || []).length;
     //Level of most distant sibling to current path
     const endSibling = billingRoutesFlat.find(route =>
-      route.path.includes(pathname)
+      matchPath(pathname, {
+        path: route.path,
+        exact: false,
+        strict: false
+      })
     );
-    const maxLevel = endSibling
-      ? endSibling.path.split("/").length - 1
-      : currentLevel;
-    console.log("currentLevel = ", currentLevel, "maxLevel = ", maxLevel);
-    level = Math.min(currentLevel, maxLevel - 1);
+    const endSiblingLevel = (endSibling.path.match(/\/[^:]/g) || []).length;
+    const maxLevel = endSibling ? endSiblingLevel : currentLevel;
+    level = Math.min(currentLevel, maxLevel);
+    console.log(
+      "matchedRoute.path = ",
+      matchedRoute.path,
+      "\ncurrentLevel = ",
+      currentLevel,
+      "\nendSiblingLevel = ",
+      endSiblingLevel,
+      "\nmaxLevel = ",
+      maxLevel,
+      "\nlevel = ",
+      level
+    );
   }
   return (
     <Outer>
       <Slider level={level}>
-        <SubNavLevel routes={routes} base={base} rootTitle={rootTitle} />
+        <SubNavLevel
+          routes={routes}
+          base={base}
+          rootTitle={rootTitle}
+          match={match}
+        />
       </Slider>
     </Outer>
   );
