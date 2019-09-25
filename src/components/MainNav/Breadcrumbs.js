@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { getMatchedRoute } from "../../helpers/routeHelpers";
 
@@ -8,19 +8,14 @@ import { getMatchedRoute } from "../../helpers/routeHelpers";
  * using flattened routes object
  * TODO: Can we recurse over the standard tree here instead like we do for <SubNav/>?
  *
- * @param {string} pathname - Current full path from react router
  * @param basePath
  * @param baseTitle
  * @param {array} flatRoutes
  * @returns {*}
  * @constructor
  */
-const Breadcrumbs = ({
-  location: { pathname },
-  basePath,
-  baseTitle,
-  flatRoutes
-}) => {
+const Breadcrumbs = ({ basePath, baseTitle, flatRoutes }) => {
+  const { pathname } = useLocation();
   // Get most specific route that exists for the pathname
   const matchedRoute = getMatchedRoute(flatRoutes, pathname);
 
@@ -57,4 +52,4 @@ const BreadcrumbItem = ({ route, flatRoutes }) => {
   );
 };
 
-export default withRouter(Breadcrumbs);
+export default Breadcrumbs;

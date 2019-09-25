@@ -1,11 +1,16 @@
 import React from "react";
-import { Route, Link, withRouter } from "react-router-dom";
+import {
+  Route,
+  Link,
+  matchPath,
+  useParams,
+  useLocation
+} from "react-router-dom";
 import styled from "styled-components";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import Box from "@material-ui/core/Box";
 import { Typography } from "@material-ui/core";
-import { matchPath, useParams } from "react-router-dom";
 
 const Outer = styled.div`
   position: fixed;
@@ -134,12 +139,12 @@ function SubNavLevel({ routes, base, rootTitle }) {
  * Main nav component called from the app root
  * @param routes - entire routing hierarchy for the app
  * @param base - namespace for the app. eg. /billing
- * @param pathname - current path - from React Router
  * @param rootTitle - menu title for root level. eg. "Billing"
  * @returns {*}
  * @constructor
  */
-export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
+export const SubNav = ({ routes, base, rootTitle }) => {
+  const { pathname } = useLocation();
   // Level to slide the display to
   let level = 1;
 
@@ -178,4 +183,4 @@ export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
   );
 };
 
-export default withRouter(SubNav);
+export default SubNav;
