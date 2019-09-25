@@ -1,5 +1,5 @@
 import React from "react";
-import { billingRoutesFlat } from "../../components/MainNav/billingRoutes";
+import { routesFlat } from "./routes";
 import { Route, Switch } from "react-router-dom";
 import BillingDashboard from "./DummyViews/BillingDashboard";
 import Breadcrumbs from "../../components/MainNav/Breadcrumbs";
@@ -15,10 +15,10 @@ const Billing = () => {
       <Breadcrumbs
         basePath="/billing"
         baseTitle="Billing"
-        flatRoutes={billingRoutesFlat}
+        flatRoutes={routesFlat}
       />
       <Switch>
-        {billingRoutesFlat.map(route => (
+        {routesFlat.map(route => (
           <Route {...route} key={route.path} />
         ))}
         <Route path="/billing" component={BillingDashboard} />

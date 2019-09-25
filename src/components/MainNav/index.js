@@ -1,7 +1,7 @@
 import React from "react";
 import RootNav from "./RootNav";
 import { Route } from "react-router-dom";
-import { billingRoutes } from "./billingRoutes";
+import { routes as billingRoutes } from "../../microFrontEnds/Billing/routes";
 import SubNav from "./SubNav";
 
 const MainNav = () => {
