@@ -70,7 +70,9 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
     return (
       <Route
         path={fullPath}
-        component={() => <SubNavLevel routes={route.routes} base={fullPath} />}
+        component={() => (
+          <SubNavLevel routes={route.children} base={fullPath} />
+        )}
       />
     );
   }
@@ -106,14 +108,14 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
               {route.title && (
                 <NavLink to={fullPath}>
                   {route.title}
-                  {route.routes && <ChevronRight />}
+                  {route.children && <ChevronRight />}
                 </NavLink>
               )}
-              {route.routes && (
+              {route.children && (
                 <Route
                   path={fullPath}
                   component={() => (
-                    <SubNavLevel routes={route.routes} base={fullPath} />
+                    <SubNavLevel routes={route.children} base={fullPath} />
                   )}
                 />
               )}

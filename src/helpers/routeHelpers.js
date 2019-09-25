@@ -22,7 +22,7 @@ export function flattenRoutes(sourceRoutes, sourceRoutesBase) {
         title: route.title,
         component: route.component
       });
-      if (route.routes) flatten(route.routes, `${base}${route.path}`);
+      if (route.children) flatten(route.children, `${base}${route.path}`);
     });
   };
 

@@ -43,19 +43,19 @@ export const billingRoutes = [
     path: "/customers",
     title: "Customers",
     component: CustomersDashboard,
-    routes: [
+    children: [
       {
         path: "/manage",
         title: "Manage Customers",
         component: ManageCustomers,
-        routes: [
+        children: [
           {
             path: "/:customerId",
             title: false, // Won't appear in the menu if title not present
             // and kinda needs to skip this level as "Manage customers" should still be visible
             component: CustomerDashboard,
             // That :customerId will need to be substituted in the below paths
-            routes: [
+            children: [
               {
                 path: "/details",
                 title: "Customer details",
@@ -86,23 +86,23 @@ export const billingRoutes = [
     path: "/products",
     title: "Products",
     component: ProductDashboard,
-    routes: [
+    children: [
       {
         path: "/view",
         title: "View Products",
         component: ViewProducts
-        // Note: routes off this inside component that should retain the menu context
+        // Note: children off this inside component that should retain the menu context
       },
       {
         path: "/lorem",
         title: "Lorem Ipusm",
         component: LoremIpsum,
-        routes: [
+        children: [
           {
             path: "/dolor-sit",
             title: "Dolor Sit amet",
             component: DolorSitAmet,
-            routes: [
+            children: [
               {
                 path: "/even-deeper",
                 title: "Even Deeper",
