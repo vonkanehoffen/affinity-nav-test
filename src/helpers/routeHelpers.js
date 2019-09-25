@@ -7,8 +7,6 @@ import { matchPath } from "react-router-dom";
  * Also sorts routes by specificity as <Switch> renders the first match.
  * Without this /billing/products/ would supersede /billing/products/view, for instance.
  *
- * TODO: Can this be done without mutation?
- *
  * @param sourceRoutes
  * @param sourceRoutesBase
  */
@@ -47,13 +45,6 @@ export function flattenRoutes(sourceRoutes, sourceRoutesBase) {
  * @param pathname
  */
 export function getMatchedRoute(routes, pathname) {
-  // let matchedRoute,
-  //   subject = pathname;
-  // while (!matchedRoute && subject) {
-  //   matchedRoute = routes.find(route => route.path === subject); // eslint-disable-line no-loop-func
-  //   subject = subject.substring(0, subject.lastIndexOf("/"));
-  // }
-  // return matchedRoute;
   return routes.find(route =>
     matchPath(pathname, {
       path: route.path,

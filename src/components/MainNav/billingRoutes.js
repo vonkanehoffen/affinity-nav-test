@@ -51,10 +51,10 @@ export const billingRoutes = [
         children: [
           {
             path: "/:customerId",
-            title: false, // Won't appear in the menu if title not present
-            // and kinda needs to skip this level as "Manage customers" should still be visible
+            // Without a title the level is only rendered as routing logic
+            // This is for when dynamic routes are rendered in-view (eg. a table of customers)
+            title: false,
             component: CustomerDashboard,
-            // That :customerId will need to be substituted in the below paths
             children: [
               {
                 path: "/details",
@@ -91,7 +91,6 @@ export const billingRoutes = [
         path: "/view",
         title: "View Products",
         component: ViewProducts
-        // Note: children off this inside component that should retain the menu context
       },
       {
         path: "/lorem",

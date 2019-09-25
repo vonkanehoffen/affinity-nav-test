@@ -5,15 +5,18 @@ import BillingDashboard from "./DummyViews/BillingDashboard";
 import Breadcrumbs from "../../components/MainNav/Breadcrumbs";
 
 /**
- * Render routes for all views.
- * TODO: Re-compose this so it can be reused on all products
+ * The Billing front end root
  * @returns {*}
  * @constructor
  */
 const Billing = () => {
   return (
     <div>
-      <Breadcrumbs basePath="/billing" baseTitle="Billing" />
+      <Breadcrumbs
+        basePath="/billing"
+        baseTitle="Billing"
+        flatRoutes={billingRoutesFlat}
+      />
       <Switch>
         {billingRoutesFlat.map(route => (
           <Route {...route} key={route.path} />
