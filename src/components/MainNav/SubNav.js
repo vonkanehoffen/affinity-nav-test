@@ -11,14 +11,14 @@ import { matchPath, useParams } from "react-router-dom";
 
 const Outer = styled.div`
   position: fixed;
-  top: 300px;
-  left: 360px;
+  top: 0;
+  left: 60px;
   width: 230px;
   height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background: white;
-  opacity: 0.8;
-  //overflow: hidden;
+  //opacity: 0.8;
+  overflow: hidden;
 `;
 
 const Slider = styled.div`
@@ -53,20 +53,29 @@ const NavLink = styled(Link)`
   text-decoration: none;
 `;
 
-const SubNavLevel = ({ routes, base, rootTitle }) => {
+function populatePathParams(params, path) {
+  return Object.keys(params).reduce(
+    (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
+    path
+  );
+}
+
+/**
+ * Render a level of navigation
+ * This gets called recursively to traverse the routing tree
+ * @param routes - current level of the routing object / tree
+ * @param base - base URL for current level
+ * @param rootTitle - root menu title. Passed once when called initially from <SubNav/>
+ * @returns {*}
+ * @constructor
+ */
+function SubNavLevel({ routes, base, rootTitle }) {
+  // Hook to get current :params on the route
   const params = useParams();
-  // console.log("params: ", params);
   const parentPath = base.substring(0, base.lastIndexOf("/"));
-  // console.log("routes passed to SubNavLevel = ", routes);
-  // Fuck horrible but working. Render just the rout when it's a param level
-  // TODO: Tidy this up - it just removes the <Level> wrapper and Dash / back links
   if (!routes[0].title) {
     const route = routes[0];
-    const fullPath = Object.keys(params).reduce(
-      (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
-      `${base}${route.path}`
-    );
-    // console.log("doing no title render: ", fullPath);
+    const fullPath = populatePathParams(params, `${base}${route.path}`);
     return (
       <Route
         path={fullPath}
@@ -115,7 +124,7 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
               {/*</p>*/}
               {route.title && (
                 <NavLink to={fullPath}>
-                  <pre>{fullPath}</pre>
+                  {/*<pre>{fullPath}</pre>*/}
                   {route.title}
                   {route.children && <ChevronRight />}
                 </NavLink>
@@ -134,7 +143,7 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
       })}
     </Level>
   );
-};
+}
 
 /**
  * Main nav component called from the app root
