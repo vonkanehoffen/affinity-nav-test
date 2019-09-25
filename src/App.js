@@ -5,6 +5,7 @@ import styled from "styled-components";
 import Billing from "./microFrontEnds/Billing";
 import Sales from "./microFrontEnds/Sales";
 import RootNav from "./components/RootNav";
+import Home from "./microFrontEnds/Home";
 
 const Container = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ function App() {
     <BrowserRouter>
       <Container>
         <RootNav />
+        <Route path="/" exact component={Home} />
         <Route path="/billing" component={Billing} />
         <Route path="/sales" component={Sales} />
       </Container>
