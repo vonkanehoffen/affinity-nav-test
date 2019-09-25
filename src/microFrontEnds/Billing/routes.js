@@ -132,6 +132,11 @@ export const routes = [
         component: ManageProducts
       }
     ]
+  },
+  {
+    path: "/another",
+    title: "Another",
+    component: Generic
   }
 ];
 

@@ -96,18 +96,19 @@ function SubNavLevel({ routes, base, rootTitle }) {
   // Render all links and call this function again for any children (to recurse over the hierarchy)
   return (
     <Level>
-      {rootTitle ? (
-        <Box m={1}>
-          <Typography variant="h4">{rootTitle}</Typography>
-        </Box>
-      ) : (
-        <div>
+      <div>
+        {rootTitle ? (
+          <Box m={1}>
+            <Typography variant="h4">{rootTitle}</Typography>
+          </Box>
+        ) : (
           <BackLink to={base.substring(0, base.lastIndexOf("/"))}>
             <ChevronLeft /> Back
           </BackLink>
-          <NavLink to={populatePathParams(params, base)}>Dashboard</NavLink>
-        </div>
-      )}
+        )}
+        <NavLink to={populatePathParams(params, base)}>Dashboard</NavLink>
+      </div>
+
       {routes.map(route => {
         // Construct the full path including the base
         // and populate any parameters already matched in the current route
