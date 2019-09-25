@@ -57,7 +57,7 @@ export function getMatchedRoute(routes, pathname) {
     matchPath(pathname, {
       path: route.path,
       exact: false,
-      strict: true
+      strict: false
     })
   );
 }

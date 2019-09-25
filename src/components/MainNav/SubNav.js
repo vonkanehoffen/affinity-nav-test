@@ -11,8 +11,8 @@ import { matchPath, useParams } from "react-router-dom";
 
 const Outer = styled.div`
   position: fixed;
-  top: 0;
-  left: 60px;
+  top: 300px;
+  left: 360px;
   width: 230px;
   height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -55,18 +55,18 @@ const NavLink = styled(Link)`
 
 const SubNavLevel = ({ routes, base, rootTitle }) => {
   const params = useParams();
-  console.log("params: ", params);
+  // console.log("params: ", params);
   const parentPath = base.substring(0, base.lastIndexOf("/"));
-  console.log("routes passed to SubNavLevel = ", routes);
+  // console.log("routes passed to SubNavLevel = ", routes);
   // Fuck horrible but working. Render just the rout when it's a param level
   // TODO: Tidy this up - it just removes the <Level> wrapper and Dash / back links
   if (!routes[0].title) {
-    console.log("doing no title render");
     const route = routes[0];
     const fullPath = Object.keys(params).reduce(
       (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
       `${base}${route.path}`
     );
+    console.log("doing no title render: ", fullPath);
     return (
       <Route
         path={fullPath}
@@ -125,37 +125,47 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
   );
 };
 
-export const SubNav = ({
-  routes,
-  base,
-  location: { pathname },
-  match,
-  rootTitle
-}) => {
+/**
+ * Main nav component called from the app root
+ * @param routes - entire routing hierarchy for the app
+ * @param base - namespace for the app. eg. /billing
+ * @param pathname - current path - from React Router
+ * @param rootTitle - menu title for root level. eg. "Billing"
+ * @returns {*}
+ * @constructor
+ */
+export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
   // Get the level (translateX) to slide the nav container to
   // debugger;
+  // TODO: Clean pathname (trailing slash breaks this)
   const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
   let level = 1;
   console.log("matchedRoute = ", matchedRoute);
   if (matchedRoute) {
-    // Level of current path
+    // Level of current path (match not including /:param)
     const currentLevel = (matchedRoute.path.match(/\/[^:]/g) || []).length;
     //Level of most distant sibling to current path
     const endSibling = billingRoutesFlat.find(route =>
-      matchPath(pathname, {
-        path: route.path,
-        exact: false,
-        strict: false
-      })
+      // matchPath(pathname, {
+      //   path: route.path,
+      //   exact: false,
+      //   strict: false
+      // })
+      route.path.includes(pathname)
     );
     const endSiblingLevel = (endSibling.path.match(/\/[^:]/g) || []).length;
     const maxLevel = endSibling ? endSiblingLevel : currentLevel;
     level = Math.min(currentLevel, maxLevel);
+    console.log(billingRoutesFlat);
     console.log(
-      "matchedRoute.path = ",
-      matchedRoute.path,
+      "pathname =",
+      pathname,
+      "\nmatchedRoute = ",
+      matchedRoute,
       "\ncurrentLevel = ",
       currentLevel,
+      "\nendSibling = ",
+      endSibling,
       "\nendSiblingLevel = ",
       endSiblingLevel,
       "\nmaxLevel = ",
@@ -167,12 +177,7 @@ export const SubNav = ({
   return (
     <Outer>
       <Slider level={level}>
-        <SubNavLevel
-          routes={routes}
-          base={base}
-          rootTitle={rootTitle}
-          match={match}
-        />
+        <SubNavLevel routes={routes} base={base} rootTitle={rootTitle} />
       </Slider>
     </Outer>
   );
