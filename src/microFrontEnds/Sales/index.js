@@ -1,7 +1,7 @@
 import React from "react";
 import { routes, routesFlat } from "./routes";
 import { Route, Switch } from "react-router-dom";
-import BillingDashboard from "../Billing/DummyViews/Generic";
+import Generic from "../Billing/DummyViews/Generic";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Content from "../../components/Content";
 import SubNav from "../../components/SubNav";
@@ -11,7 +11,7 @@ import SubNav from "../../components/SubNav";
  * @returns {*}
  * @constructor
  */
-const Billing = () => {
+const Sales = () => {
   return (
     <>
       <SubNav routes={routes} base="/sales" rootTitle="Sales" />
@@ -25,11 +25,11 @@ const Billing = () => {
           {routesFlat.map(route => (
             <Route {...route} key={route.path} />
           ))}
-          <Route path="/sales" component={BillingDashboard} />
+          <Route path="/sales" component={Generic} />
         </Switch>
       </Content>
     </>
   );
 };
 
-export default Billing;
+export default Sales;

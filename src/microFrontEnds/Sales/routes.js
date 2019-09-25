@@ -26,4 +26,4 @@ export const routes = [
   }
 ];
 
-export const routesFlat = flattenRoutes(routes, "/billing");
+export const routesFlat = flattenRoutes(routes, "/sales");
