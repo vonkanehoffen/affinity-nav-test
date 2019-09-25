@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { getMatchedRoute } from "../../helpers/routeHelpers";
+import { getMatchedRoute } from "../helpers/routeHelpers";
 
 /**
  * Render breadcrumbs for the current pathname
