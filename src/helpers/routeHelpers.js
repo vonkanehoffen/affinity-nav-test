@@ -20,7 +20,8 @@ export function flattenRoutes(sourceRoutes, sourceRoutesBase) {
       flatRoutes.push({
         path: `${base}${route.path}`,
         title: route.title,
-        component: route.component
+        component: route.component,
+        hasChildren: !!route.children
       });
       if (route.children) flatten(route.children, `${base}${route.path}`);
     });

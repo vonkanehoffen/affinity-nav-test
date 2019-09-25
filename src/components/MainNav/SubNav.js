@@ -66,7 +66,7 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
       (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
       `${base}${route.path}`
     );
-    console.log("doing no title render: ", fullPath);
+    // console.log("doing no title render: ", fullPath);
     return (
       <Route
         path={fullPath}
@@ -87,7 +87,15 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
           <BackLink to={parentPath}>
             <ChevronLeft /> Back
           </BackLink>
-          <NavLink to={base}>Dashboard</NavLink>
+          <NavLink
+            to={Object.keys(params).reduce(
+              (acc, paramName) =>
+                acc.replace(`:${paramName}`, params[paramName]),
+              base
+            )}
+          >
+            Dashboard
+          </NavLink>
         </div>
       )}
       {routes.map(route => {
@@ -107,6 +115,7 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
               {/*</p>*/}
               {route.title && (
                 <NavLink to={fullPath}>
+                  <pre>{fullPath}</pre>
                   {route.title}
                   {route.children && <ChevronRight />}
                 </NavLink>
@@ -137,45 +146,37 @@ const SubNavLevel = ({ routes, base, rootTitle }) => {
  * @constructor
  */
 export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
-  // Get the level (translateX) to slide the nav container to
-  // debugger;
-  // TODO: Clean pathname (trailing slash breaks this)
-  const matchedRoute = getMatchedRoute(billingRoutesFlat, pathname);
-  let level = 1;
-  console.log("matchedRoute = ", matchedRoute);
-  if (matchedRoute) {
-    // Level of current path (match not including /:param)
-    const currentLevel = (matchedRoute.path.match(/\/[^:]/g) || []).length;
-    //Level of most distant sibling to current path
-    const endSibling = billingRoutesFlat.find(route =>
-      // matchPath(pathname, {
-      //   path: route.path,
-      //   exact: false,
-      //   strict: false
-      // })
-      route.path.includes(pathname)
-    );
-    const endSiblingLevel = (endSibling.path.match(/\/[^:]/g) || []).length;
-    const maxLevel = endSibling ? endSiblingLevel : currentLevel;
-    level = Math.min(currentLevel, maxLevel);
-    console.log(billingRoutesFlat);
-    console.log(
-      "pathname =",
-      pathname,
-      "\nmatchedRoute = ",
-      matchedRoute,
-      "\ncurrentLevel = ",
-      currentLevel,
-      "\nendSibling = ",
-      endSibling,
-      "\nendSiblingLevel = ",
-      endSiblingLevel,
-      "\nmaxLevel = ",
-      maxLevel,
-      "\nlevel = ",
-      level
-    );
+  let currentRoute,
+    level = 1;
+
+  // Recursively search for the current route
+  const matchRoute = (routes, base) => {
+    const match = routes.find(r => {
+      console.log("finding match: ", `${base}${r.path}`);
+      return matchPath(pathname, {
+        path: `${base}${r.path}`,
+        exact: false,
+        strict: false
+      });
+    });
+    if (match) {
+      console.log("matched", match);
+      currentRoute = match;
+      // If it doesn't have a title then it's a non-rendered layer.
+      // i.e. dynamic route that's going to have it's links in a table or something
+      if (match.title) level++;
+      if (currentRoute.children) {
+        matchRoute(currentRoute.children, `${base}${match.path}`);
+      }
+    }
+  };
+  matchRoute(routes, base);
+  if (currentRoute) {
+    if (!currentRoute.children || !currentRoute.children[0].title) level--;
   }
+
+  console.log("currentRoute = ", currentRoute, "\nlevel = ", level);
+
   return (
     <Outer>
       <Slider level={level}>
