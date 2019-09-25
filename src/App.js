@@ -10,6 +10,14 @@ const Container = styled.div`
   display: flex;
 `;
 
+/**
+ * App root
+ * Note ultimately `Billing` and `Sales` would be different micro front end codebases
+ * with separate builds. See https://martinfowler.com/articles/micro-frontends.html
+ *
+ * @returns {*}
+ * @constructor
+ */
 function App() {
   return (
     <BrowserRouter>

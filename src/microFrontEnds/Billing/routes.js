@@ -135,4 +135,5 @@ export const routes = [
   }
 ];
 
+// This is a bit awkward. See Breadcrumbs.js
 export const routesFlat = flattenRoutes(routes, "/billing");
