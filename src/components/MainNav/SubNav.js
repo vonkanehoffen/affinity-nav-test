@@ -1,8 +1,6 @@
 import React from "react";
 import { Route, Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
-import { getMatchedRoute } from "../../helpers/routeHelpers";
-import { billingRoutesFlat } from "./billingRoutes";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import Box from "@material-ui/core/Box";
@@ -17,21 +15,18 @@ const Outer = styled.div`
   height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   background: white;
-  //opacity: 0.8;
   overflow: hidden;
 `;
 
 const Slider = styled.div`
   transform: translateX(-${props => props.level * 230}px);
   transition: transform 0.4s;
-  //opacity: 0.4;
 `;
 const Level = styled.div`
   position: absolute;
   left: 230px;
   top: 0;
   background: pink;
-  //border: 1px solid red;
   width: 230px;
 `;
 
@@ -53,6 +48,12 @@ const NavLink = styled(Link)`
   text-decoration: none;
 `;
 
+/**
+ * Swap any /:params/ out of a path string with matching values from an object
+ * @param {object} params
+ * @param {string} path
+ * @returns {string}
+ */
 function populatePathParams(params, path) {
   return Object.keys(params).reduce(
     (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
@@ -63,7 +64,7 @@ function populatePathParams(params, path) {
 /**
  * Render a level of navigation
  * This gets called recursively to traverse the routing tree
- * @param routes - current level of the routing object / tree
+ * @param {object} routes - current level of the routing object / tree
  * @param base - base URL for current level
  * @param rootTitle - root menu title. Passed once when called initially from <SubNav/>
  * @returns {*}
@@ -72,19 +73,22 @@ function populatePathParams(params, path) {
 function SubNavLevel({ routes, base, rootTitle }) {
   // Hook to get current :params on the route
   const params = useParams();
-  const parentPath = base.substring(0, base.lastIndexOf("/"));
+
+  // If the route has no title it's a dummy level so should only render routing logic
+  // This is generally for dynamic routes (i.e. /whatever/:param/) where the links
+  // to the next level down the hierarchy would be rendered in a view (eg. a table of customers)
   if (!routes[0].title) {
     const route = routes[0];
     const fullPath = populatePathParams(params, `${base}${route.path}`);
     return (
-      <Route
-        path={fullPath}
-        component={() => (
-          <SubNavLevel routes={route.children} base={fullPath} />
-        )}
-      />
+      <Route path={fullPath}>
+        <SubNavLevel routes={route.children} base={fullPath} />
+      </Route>
     );
   }
+
+  // Normal level
+  // Render all links and call this function again for any children (to recurse over the hierarchy)
   return (
     <Level>
       {rootTitle ? (
@@ -93,53 +97,34 @@ function SubNavLevel({ routes, base, rootTitle }) {
         </Box>
       ) : (
         <div>
-          <BackLink to={parentPath}>
+          <BackLink to={base.substring(0, base.lastIndexOf("/"))}>
             <ChevronLeft /> Back
           </BackLink>
-          <NavLink
-            to={Object.keys(params).reduce(
-              (acc, paramName) =>
-                acc.replace(`:${paramName}`, params[paramName]),
-              base
-            )}
-          >
-            Dashboard
-          </NavLink>
+          <NavLink to={populatePathParams(params, base)}>Dashboard</NavLink>
         </div>
       )}
       {routes.map(route => {
-        // Construct the full path including the base and swap any parameters
-        // already matched in the current route
-        const fullPath = Object.keys(params).reduce(
-          (acc, paramName) => acc.replace(`:${paramName}`, params[paramName]),
-          `${base}${route.path}`
+        // Construct the full path including the base
+        // and populate any parameters already matched in the current route
+        const fullPath = populatePathParams(params, `${base}${route.path}`);
+        return (
+          <div key={route.path}>
+            {route.title && (
+              <NavLink to={fullPath}>
+                {route.title}
+                {route.children && <ChevronRight />}
+              </NavLink>
+            )}
+            {route.children && (
+              <Route
+                path={fullPath}
+                component={() => (
+                  <SubNavLevel routes={route.children} base={fullPath} />
+                )}
+              />
+            )}
+          </div>
         );
-
-        if (route.title || true)
-          // this needs to be rendered invisible when param route?
-          return (
-            <div key={route.path}>
-              {/*<p style={{ wordBreak: "break-all", border: "2px solid #f00" }}>*/}
-              {/*  {fullPath}*/}
-              {/*</p>*/}
-              {route.title && (
-                <NavLink to={fullPath}>
-                  {/*<pre>{fullPath}</pre>*/}
-                  {route.title}
-                  {route.children && <ChevronRight />}
-                </NavLink>
-              )}
-              {route.children && (
-                <Route
-                  path={fullPath}
-                  component={() => (
-                    <SubNavLevel routes={route.children} base={fullPath} />
-                  )}
-                />
-              )}
-            </div>
-          );
-        return false;
       })}
     </Level>
   );
@@ -155,13 +140,13 @@ function SubNavLevel({ routes, base, rootTitle }) {
  * @constructor
  */
 export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
-  let currentRoute,
-    level = 1;
+  // Level to slide the display to
+  let level = 1;
 
   // Recursively search for the current route
+  let currentRoute;
   const matchRoute = (routes, base) => {
     const match = routes.find(r => {
-      console.log("finding match: ", `${base}${r.path}`);
       return matchPath(pathname, {
         path: `${base}${r.path}`,
         exact: false,
@@ -169,7 +154,6 @@ export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
       });
     });
     if (match) {
-      console.log("matched", match);
       currentRoute = match;
       // If it doesn't have a title then it's a non-rendered layer.
       // i.e. dynamic route that's going to have it's links in a table or something
@@ -181,10 +165,9 @@ export const SubNav = ({ routes, base, location: { pathname }, rootTitle }) => {
   };
   matchRoute(routes, base);
   if (currentRoute) {
+    // If there are no further levels down the hierarchy, don't scroll the menu over.
     if (!currentRoute.children || !currentRoute.children[0].title) level--;
   }
-
-  console.log("currentRoute = ", currentRoute, "\nlevel = ", level);
 
   return (
     <Outer>
