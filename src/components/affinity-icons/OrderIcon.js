@@ -1,6 +1,6 @@
 import React from "react";
 
-const OrderIcon = ({ size = "40px" }) => (
+const OrderIcon = ({ size = "30px" }) => (
   <svg
     width={size}
     height={size}

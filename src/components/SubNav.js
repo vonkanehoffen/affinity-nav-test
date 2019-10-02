@@ -15,7 +15,7 @@ import { Typography } from "@material-ui/core";
 const Outer = styled.div`
   position: fixed;
   top: 0;
-  left: 60px;
+  left: 50px;
   width: 230px;
   height: 100vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

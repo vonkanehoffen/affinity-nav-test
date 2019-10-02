@@ -1,6 +1,6 @@
 import React from "react";
 
-const SelfServiceIcon = ({ size = "40px" }) => (
+const SelfServiceIcon = ({ size = "30px" }) => (
   <svg
     width={size}
     height={size}

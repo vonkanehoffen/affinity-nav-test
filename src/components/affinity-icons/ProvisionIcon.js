@@ -1,6 +1,6 @@
 import React from "react";
 
-const ProvisionIcon = ({ size = "40px" }) => (
+const ProvisionIcon = ({ size = "30px" }) => (
   <svg
     width={size}
     height={size}

@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route } from "react-router-dom";
+import AuroraTheme from "./components/AuroraTheme/AuroraTheme";
 import styled from "styled-components";
 import Billing from "./microFrontEnds/Billing";
 import Sales from "./microFrontEnds/Sales";
@@ -22,12 +23,14 @@ const Container = styled.div`
 function App() {
   return (
     <BrowserRouter>
-      <Container>
-        <RootNav />
-        <Route path="/" exact component={Home} />
-        <Route path="/billing" component={Billing} />
-        <Route path="/sales" component={Sales} />
-      </Container>
+      <AuroraTheme>
+        <Container>
+          <RootNav />
+          <Route path="/" exact component={Home} />
+          <Route path="/billing" component={Billing} />
+          <Route path="/sales" component={Sales} />
+        </Container>
+      </AuroraTheme>
     </BrowserRouter>
   );
 }

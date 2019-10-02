@@ -1,6 +1,6 @@
 import React from "react";
 
-const SupportIcon = ({ size = "40px" }) => (
+const SupportIcon = ({ size = "30px" }) => (
   <svg
     width={size}
     height={size}

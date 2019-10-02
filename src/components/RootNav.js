@@ -15,10 +15,10 @@ const Outer = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 60px;
+  width: 50px;
   overflow: hidden;
   height: 100vh;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   background: white;
   transition: width 0.2s ease-in;
   &:hover {
@@ -26,33 +26,33 @@ const Outer = styled.div`
   }
 `;
 
-const ListItem = styled.div`
+const ListItem = styled(Link)`
   display: flex;
-  padding: 10px 10px 10px 5px;
+  padding: 10px 10px 0px 5px;
   align-items: center;
   width: 140px;
   color: black;
+  text-decoration: none;
 `;
 
 const IconWrap = styled.div`
+  box-sizing: content-box;
   margin-right: 10px;
   padding: 4px;
-  height: 52px;
+  height: 30px;
   border-radius: 14px;
   border: 2px solid transparent;
   transition: border-color 0.2s;
   &:hover {
-    border-color: black;
+    border-color: rgba(0, 0, 0, 0.3);
   }
 `;
 
 const Item = ({ link, label, icon }) => (
-  <Link to={link}>
-    <ListItem>
-      <IconWrap>{icon}</IconWrap>
-      {label}
-    </ListItem>
-  </Link>
+  <ListItem to={link}>
+    <IconWrap>{icon}</IconWrap>
+    {label}
+  </ListItem>
 );
 
 const RootNav = () => {
