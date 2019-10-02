@@ -1,9 +1,10 @@
 import React from "react";
+import { Typography } from "@material-ui/core";
 
 const BillingDashboard = () => {
   return (
     <div>
-      <h1>Billing dashboard here</h1>
+      <Typography variant="h1">Billing dashboard here</Typography>
     </div>
   );
 };

@@ -29,26 +29,32 @@ export const theme = createMuiTheme({
     borderRadius: 5
   },
   typography: {
-    // Note: 16px default base.
-    fontFamily: "Montserrat, sans-serif",
+    // Note: 16px default htmlFontSize base.
+    fontSize: 14, // default base
+    fontFamily: "'Open Sans', sans-serif",
     fontWeightBold: 600,
     h1: {
+      fontFamily: "'Montserrat', sans-serif",
       fontSize: "2rem",
       fontWeight: 600
     },
     h2: {
+      fontFamily: "'Montserrat', sans-serif",
       fontSize: "1.75rem",
       fontWeight: 600
     },
     h3: {
+      fontFamily: "'Montserrat', sans-serif",
       fontSize: "1.25rem",
       fontWeight: 600
     },
     h4: {
+      fontFamily: "'Montserrat', sans-serif",
       fontSize: "1rem",
       fontWeight: 600
     },
     h5: {
+      fontFamily: "'Montserrat', sans-serif",
       fontSize: "0.875rem",
       fontWeight: 600
     },

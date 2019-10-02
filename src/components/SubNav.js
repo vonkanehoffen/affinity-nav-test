@@ -4,13 +4,16 @@ import {
   Link,
   matchPath,
   useParams,
-  useLocation
+  useLocation,
+  useHistory
 } from "react-router-dom";
 import styled from "styled-components";
 import ChevronRight from "@material-ui/icons/ChevronRight";
 import ChevronLeft from "@material-ui/icons/ChevronLeft";
 import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
 import { Typography } from "@material-ui/core";
+import { colors } from "./AuroraTheme/AuroraTheme";
 
 const Outer = styled.div`
   position: fixed;
@@ -18,7 +21,7 @@ const Outer = styled.div`
   left: 50px;
   width: 230px;
   height: 100vh;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   background: white;
   overflow: hidden;
 `;
@@ -31,7 +34,7 @@ const Level = styled.div`
   position: absolute;
   left: 230px;
   top: 0;
-  background: pink;
+  background: white;
   width: 230px;
 `;
 
@@ -47,10 +50,14 @@ const NavLink = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background: greenyellow;
-  border-bottom: 1px solid #000;
+  padding: 0.8rem 0.8rem 0.8rem 1rem;
+  background: white;
+  color: ${colors.neutralAbyss.value};
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   text-decoration: none;
+  &:hover {
+    color: ${colors.vibrantViolet.value};
+  }
 `;
 
 /**
@@ -78,6 +85,7 @@ function populatePathParams(params, path) {
 function SubNavLevel({ routes, base, rootTitle }) {
   // Hook to get current :params on the route
   const params = useParams();
+  const history = useHistory();
 
   // If the route has no title it's a dummy level so should only render routing logic
   // This is generally for dynamic routes (i.e. /whatever/:param/) where the links
@@ -97,15 +105,20 @@ function SubNavLevel({ routes, base, rootTitle }) {
   return (
     <Level>
       <div>
-        {rootTitle ? (
-          <Box m={1}>
-            <Typography variant="h4">{rootTitle}</Typography>
-          </Box>
-        ) : (
-          <BackLink to={base.substring(0, base.lastIndexOf("/"))}>
-            <ChevronLeft /> Back
-          </BackLink>
-        )}
+        <Box m={1}>
+          {rootTitle ? (
+            <Typography variant="h3">{rootTitle}</Typography>
+          ) : (
+            <Button
+              startIcon={<ChevronLeft />}
+              onClick={() =>
+                history.push(base.substring(0, base.lastIndexOf("/")))
+              }
+            >
+              Back
+            </Button>
+          )}
+        </Box>
         <NavLink to={populatePathParams(params, base)}>Dashboard</NavLink>
       </div>
 
