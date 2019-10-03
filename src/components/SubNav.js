@@ -38,14 +38,6 @@ const Level = styled.div`
   width: 230px;
 `;
 
-const BackLink = styled(Link)`
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  text-decoration: none;
-  word-break: break-all;
-`;
-
 const NavLink = styled(Link)`
   display: flex;
   justify-content: space-between;

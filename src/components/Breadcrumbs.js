@@ -1,14 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { useLocation, Link, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { getMatchedRoute } from "../helpers/routeHelpers";
 import Button from "@material-ui/core/Button";
 import ChevronRight from "@material-ui/icons/ChevronRight";
+import Star from "@material-ui/icons/Star";
 
 const Outer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 2rem;
+`;
+
+const ParamDummy = styled.div`
+  padding: 4px;
+  height: 32px;
 `;
 
 function Crumb({ to, children }) {
@@ -39,7 +45,6 @@ const Breadcrumbs = ({ basePath, baseTitle, flatRoutes }) => {
   const { pathname } = useLocation();
   // Get most specific route that exists for the pathname
   const matchedRoute = getMatchedRoute(flatRoutes, pathname);
-
   return (
     <Outer>
       <Crumb to={basePath}>{baseTitle}</Crumb>
@@ -68,7 +73,13 @@ const BreadcrumbItem = ({ route, flatRoutes }) => {
         <BreadcrumbItem route={parentRoute} flatRoutes={flatRoutes} />
       )}
       <ChevronRight />
-      <Crumb to={route.path}>{route.title}</Crumb>
+      {route.title ? (
+        <Crumb to={route.path}>{route.title}</Crumb>
+      ) : (
+        <ParamDummy>
+          <Star color="disabled" />
+        </ParamDummy>
+      )}
     </>
   );
 };
