@@ -12,6 +12,8 @@ import { flattenRoutes } from "../../helpers/routeHelpers";
 import CustomerDetail from "./DummyViews/CustomerDetail";
 import CustomerDashboard from "./DummyViews/CustomerDashboard";
 import Generic from "./DummyViews/Generic";
+import CustomerProducts from "./DummyViews/CustomerProducts";
+import CustomerProductDetail from "./DummyViews/CustomerProductDetail";
 
 /**
  * /billing routes
@@ -64,7 +66,21 @@ export const routes = [
               {
                 path: "/products",
                 title: "Customer Products",
-                component: Generic
+                component: CustomerProducts,
+                children: [
+                  {
+                    path: "/:productId",
+                    title: false,
+                    component: CustomerProductDetail
+                    // children: [
+                    //   {
+                    //     path: "/whatever",
+                    //     title: "Whatever",
+                    //     component: Generic
+                    //   }
+                    // ]
+                  }
+                ]
               },
               {
                 path: "/identifiers",

@@ -79,6 +79,8 @@ function SubNavLevel({ routes, base, rootTitle }) {
   const params = useParams();
   const history = useHistory();
 
+  if (!routes) return false;
+
   // If the route has no title it's a dummy level so should only render routing logic
   // This is generally for dynamic routes (i.e. /whatever/:param/) where the links
   // to the next level down the hierarchy would be rendered in a view (eg. a table of customers)
