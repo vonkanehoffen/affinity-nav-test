@@ -1,9 +1,10 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 const OtherStuff = () => {
   return (
     <div>
-      <h1>Other stuff</h1>
+      <Typography variant="h1">Other stuff</Typography>
     </div>
   );
 };

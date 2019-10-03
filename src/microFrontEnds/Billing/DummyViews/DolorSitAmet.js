@@ -1,9 +1,10 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 const DolorSitAmet = () => {
   return (
     <div>
-      <h1>DolorSitAmet</h1>
+      <Typography variant="h1">DolorSitAmet</Typography>
     </div>
   );
 };

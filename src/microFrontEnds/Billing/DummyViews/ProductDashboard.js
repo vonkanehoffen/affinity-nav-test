@@ -1,9 +1,10 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 const ProductDashboard = () => {
   return (
     <div>
-      <h1>Product Dashboard</h1>
+      <Typography variant="h1">Product Dashboard</Typography>
       {Array(10)
         .fill()
         .map((a, i) => (

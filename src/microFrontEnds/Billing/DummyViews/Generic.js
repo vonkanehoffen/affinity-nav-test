@@ -1,9 +1,10 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 const Generic = props => {
   return (
     <div>
-      <h1>Generic placeholder view</h1>
+      <Typography variant="h1">Generic placeholder view</Typography>
       <pre>{JSON.stringify(props, null, 2)}</pre>
     </div>
   );

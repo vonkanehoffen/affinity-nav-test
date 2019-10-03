@@ -4,11 +4,12 @@ import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
+import Typography from "@material-ui/core/Typography";
 
 const ManageCustomers = () => {
   return (
     <div>
-      <h1>Manage Customers</h1>
+      <Typography variant="h1">Manage Customers</Typography>
       <Table>
         <TableBody>
           {["1", "2", "abc", "123", "345bcd"].map(c => (

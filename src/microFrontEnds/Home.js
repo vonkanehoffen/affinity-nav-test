@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Typography from "@material-ui/core/Typography";
 
 const Outer = styled.div`
   background: goldenrod;
@@ -11,7 +12,7 @@ const Outer = styled.div`
 const Home = () => {
   return (
     <Outer>
-      <h1>Container Home</h1>
+      <Typography variant="h1">Container Home</Typography>
     </Outer>
   );
 };

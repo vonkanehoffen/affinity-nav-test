@@ -1,6 +1,28 @@
 import React from "react";
-import { useLocation, Link } from "react-router-dom";
+import styled from "styled-components";
+import { useLocation, Link, useHistory } from "react-router-dom";
 import { getMatchedRoute } from "../helpers/routeHelpers";
+import Button from "@material-ui/core/Button";
+import ChevronRight from "@material-ui/icons/ChevronRight";
+
+const Outer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+`;
+
+function Crumb({ to, children }) {
+  const history = useHistory();
+  return (
+    <Button
+      size="small"
+      onClick={() => history.push(to)}
+      style={{ background: "white" }}
+    >
+      {children}
+    </Button>
+  );
+}
 
 /**
  * Render breadcrumbs for the current pathname
@@ -19,13 +41,12 @@ const Breadcrumbs = ({ basePath, baseTitle, flatRoutes }) => {
   const matchedRoute = getMatchedRoute(flatRoutes, pathname);
 
   return (
-    <div>
-      <h4>Breadcrumbs</h4>
-      <Link to={basePath}>{baseTitle}</Link>
+    <Outer>
+      <Crumb to={basePath}>{baseTitle}</Crumb>
       {matchedRoute && (
         <BreadcrumbItem route={matchedRoute} flatRoutes={flatRoutes} />
       )}
-    </div>
+    </Outer>
   );
 };
 
@@ -46,7 +67,8 @@ const BreadcrumbItem = ({ route, flatRoutes }) => {
       {parentRoute && (
         <BreadcrumbItem route={parentRoute} flatRoutes={flatRoutes} />
       )}
-      -> <Link to={route.path}>{route.title}</Link>
+      <ChevronRight />
+      <Crumb to={route.path}>{route.title}</Crumb>
     </>
   );
 };

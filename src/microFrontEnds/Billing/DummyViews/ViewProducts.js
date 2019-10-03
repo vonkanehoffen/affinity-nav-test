@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, Route, Switch } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
 
 const ViewProducts = () => {
   return (
@@ -18,7 +19,7 @@ const ViewProducts = () => {
         path="/billing/products/view"
         component={() => (
           <div>
-            <h1>View Products</h1>
+            <Typography variant="h1">View Products</Typography>
             <p>
               This could have routing local to the component... like individual
               product detail pages:

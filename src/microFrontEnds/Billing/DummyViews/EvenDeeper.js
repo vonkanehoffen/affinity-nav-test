@@ -1,9 +1,10 @@
 import React from "react";
+import Typography from "@material-ui/core/Typography";
 
 const EvenDeeper = () => {
   return (
     <div>
-      <h1>EvenDeeper</h1>
+      <Typography variant="h1">EvenDeeper</Typography>
     </div>
   );
 };
